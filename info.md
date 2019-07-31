@@ -2,11 +2,6 @@
 
 Quickly search for entities from a Lovelace card.
 
-An `entities` card is produced with the results, so two cards will appear
-in the frontend. In the example above, the `search-card` is placed in a
-`vertical-stack-in-card` and the card background is themed to be transparent,
-so they appear to be closer together.
-
 ## Features
 
 * Search for entities and display results in frontend
@@ -20,45 +15,6 @@ Some things I want to add in upcoming releases:
 * More polished UI
 * Button to show all results (to override "max results")
 * Add to HACS
-
-## Install
-
-### Simple Install
-
-1. Download `search-card.js` and copy it into `config/www/search-card` (create the `search-card` directory)
-
-2. Add a reference to `search-card/search-card.js` inside your `ui-lovelace.yaml`
-
-  ```yaml
-  resources:
-    - url: /local/search-card/search-card.js?v=0
-      type: module
-  ```
-
-### Git Install
-
-1. Clone this repository into your `www`-directory: `git clone https://github.com/postlund/search-card.git`
-
-2. Add a reference to `search-card/search-card.js` inside your `ui-lovelace.yaml`
-
-  ```yaml
-  resources:
-    - url: /local/search-card/search-card.js?v=0
-      type: module
-  ```
-
-## HACS
-
-Not supported yet.
-
-## Updating
-
-If you...
-
-* manually copied the files, just download the latest files and overwrite what you already have
-* cloned the repository from Github, just do `git pull` to update
-
-... and increase `?v=X` to `?vX+1`.
 
 ## Using the card
 
