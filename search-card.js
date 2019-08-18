@@ -87,7 +87,10 @@ class SearchCard extends LitElement {
 
     for (var entity_id in this.hass.states) {
       if (entity_id.indexOf(searchText) >= 0) {
-        this.data.push(entity_id);
+        this.data.indexOf(entity_id) === -1 ? this.data.push(entity_id) : null;
+      }
+      if (this.hass.states[entity_id].attributes.friendly_name.search(new RegExp(searchText, 'i')) >= 0) {
+        this.data.indexOf(entity_id) === -1 ? this.data.push(entity_id) : null;
       }
     }
 
