@@ -19,6 +19,10 @@ class SearchCard extends LitElement {
 
 	  if (!this.config.max_results) {
 			this.config.max_results = 10;
+    }
+    
+    if (!this.config.exclude_domains) {
+			this.config.exclude_domains = [];
 		}
   }
 
@@ -27,9 +31,14 @@ class SearchCard extends LitElement {
   }
 
   render() {
-		var results = this.data.slice(0, this.config.max_results).sort();
-
-
+    var results = this.data.slice(0, this.config.max_results).sort();
+    for (domain in this.config.exclude_domains) {
+      for (result in results) {
+        if (result.split(".")[0] == domain) {
+          results.pop(result);
+        } 
+      }
+    }
     return html `
       <ha-card>
         <div id="searchContainer">
@@ -55,7 +64,6 @@ class SearchCard extends LitElement {
   }
 
 	_createResultEntities(results) {
-		var elem;
     if (results.length > 0) {
       var conf = {
 				'entities': results,
