@@ -79,6 +79,8 @@ class SearchCard extends LitElement {
 
   _valueChanged(ev) {
     var searchText = ev.target.value;
+    var searchRegex = new RegExp(searchText, 'i');
+
     this.data = [];
 
     if (!this.config || !this.hass || searchText === "") {
@@ -86,7 +88,13 @@ class SearchCard extends LitElement {
     }
 
     for (var entity_id in this.hass.states) {
-      if (entity_id.indexOf(searchText) >= 0) {
+      if (
+          (entity_id.search(searchRegex) >= 0) ||
+          (
+            "friendly_name" in this.hass.states[entity_id].attributes &&
+            this.hass.states[entity_id].attributes.friendly_name.search(searchRegex) >= 0
+          )
+        ) {
         this.data.push(entity_id);
       }
     }
