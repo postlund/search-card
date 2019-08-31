@@ -17,9 +17,9 @@ class SearchCard extends LitElement {
     this.data = [];
     this.config = config;
 
-	  if (!this.config.max_results) {
-			this.config.max_results = 10;
-		}
+    if (!this.config.max_results) {
+      this.config.max_results = 10;
+    }
   }
 
   getCardSize() {
@@ -27,10 +27,9 @@ class SearchCard extends LitElement {
   }
 
   render() {
-		var results = this.data.slice(0, this.config.max_results).sort();
+      var results = this.data.slice(0, this.config.max_results).sort();
 
-
-    return html `
+      return html `
       <ha-card>
         <div id="searchContainer">
         <paper-input id="searchText"
@@ -54,11 +53,11 @@ class SearchCard extends LitElement {
     `;
   }
 
-	_createResultEntities(results) {
-		var elem;
+  _createResultEntities(results) {
+    var elem;
     if (results.length > 0) {
       var conf = {
-				'entities': results,
+        'entities': results,
         'show_header_toggle': false,
       }
 
@@ -66,10 +65,10 @@ class SearchCard extends LitElement {
       elem.setConfig(conf);
       elem.hass = this.hass;
     } else {
-			elem = '';
-		}
-		return elem;
-	}
+      elem = '';
+    }
+    return elem;
+  }
 
   clearInput()
   {
