@@ -83,6 +83,7 @@ class SearchCard extends LitElement {
     this.data = [];
 
     if (!this.config || !this.hass || searchText === "") {
+      this.update();
       return;
     }
 
