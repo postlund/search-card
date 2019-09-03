@@ -1,10 +1,7 @@
-const LitElement = Object.getPrototypeOf(
-  customElements.get("ha-panel-lovelace")
-);
-const html = LitElement.prototype.html;
-const css = LitElement.prototype.css;
+customElements.whenDefined('card-tools').then(() => {
+var ct = customElements.get('card-tools');
 
-class SearchCard extends LitElement {
+class SearchCard extends ct.LitElement {
 
   static get properties() {
     return {
@@ -28,46 +25,38 @@ class SearchCard extends LitElement {
 
   render() {
       var results = this.data.slice(0, this.config.max_results).sort();
-
-      return html `
+      var rows = results.map((entity_id) => this._createRow(entity_id))
+      return ct.LitHtml `
       <ha-card>
         <div id="searchContainer">
-        <paper-input id="searchText"
-                     @value-changed="${this._valueChanged}"
-                     no-label-float
-                     label="Type to search...">
-          <iron-icon icon="mdi:magnify"
-                     slot="prefix"></iron-icon>
-          <paper-icon-button slot="suffix"
-                             @click="${this.clearInput}"
-                             icon="mdi:close"
-                             alt="Clear"
-                             title="Clear"></paper-icon-button>
-        </paper-input>
-        ${results.length > 0 ?
-            html `<div style="text-align: right;">Showing ${results.length} of ${this.data.length} results</div>`
-          : ''}
-        </container>
+          <paper-input id="searchText"
+                       @value-changed="${this._valueChanged}"
+                       no-label-float
+                       label="Type to search...">
+            <iron-icon icon="mdi:magnify"
+                       slot="prefix"></iron-icon>
+            <paper-icon-button slot="suffix"
+                               @click="${this.clearInput}"
+                               icon="mdi:close"
+                               alt="Clear"
+                               title="Clear"></paper-icon-button>
+          </paper-input>
+          ${results.length > 0 ?
+              ct.LitHtml `<div id="count">Showing ${results.length} of ${this.data.length} results</div>`
+            : ''}
+        </div>
+        ${rows.length > 0 ?
+              ct.LitHtml `<div id="results">${rows}</div>`
+            : ''}
       </ha-card>
-      ${this._createResultEntities(results)}
     `;
   }
 
-  _createResultEntities(results) {
-    var elem;
-    if (results.length > 0) {
-      var conf = {
-        'entities': results,
-        'show_header_toggle': false,
-      }
-
-      elem = window.document.createElement('hui-entities-card');
-      elem.setConfig(conf);
-      elem.hass = this.hass;
-    } else {
-      elem = '';
-    }
-    return elem;
+  _createRow(entity_id) {
+    var row = ct.createEntityRow({entity: entity_id});
+    row.addEventListener("click", () => ct.moreInfo(entity_id));
+    row.hass = this.hass;
+    return row;
   }
 
   clearInput()
@@ -103,10 +92,22 @@ class SearchCard extends LitElement {
   }
 
   static get styles() {
-    return css `
+    return ct.LitCSS `
       #searchContainer {
         width: 90%;
         display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #count {
+        text-align: right;
+        font-style: italic;
+      }
+      #results {
+        width: 90%;
+        display: block;
+        padding-bottom: 15px;
+        margin-top: 15px;
         margin-left: auto;
         margin-right: auto;
       }
@@ -115,3 +116,12 @@ class SearchCard extends LitElement {
 }
 
 customElements.define('search-card', SearchCard);
+
+});
+
+setTimeout(() => {
+  if(customElements.get('card-tools')) return;
+  customElements.define('search-card', class extends HTMLElement{
+    setConfig() { throw new Error("Can't find card-tools. See https://github.com/thomasloven/lovelace-card-tools");}
+  });
+}, 2000);
