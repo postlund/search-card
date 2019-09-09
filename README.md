@@ -4,14 +4,10 @@ Quickly search for entities from a Lovelace card.
 
 ![Demo of card](images/demo.gif)
 
-An `entities` card is produced with the results, so two cards will appear
-in the frontend. In the example above, the `search-card` is placed in a
-`vertical-stack-in-card` and the card background is themed to be transparent,
-so they appear to be closer together.
-
 ## Features
 
 * Search for entities and display results in frontend
+* Define custom actions that can be called for search input
 * More to come...
 
 ## Roadmap
@@ -19,9 +15,7 @@ so they appear to be closer together.
 Some things I want to add in upcoming releases:
 
 * Exclude domains and/or entities from results
-* More polished UI
 * Button to show all results (to override "max results")
-* Add to HACS
 
 ## Install
 
@@ -51,7 +45,7 @@ Some things I want to add in upcoming releases:
 
 ## HACS
 
-Not supported yet.
+Look for `Search Card` in the store.
 
 ## Updating
 
@@ -69,12 +63,22 @@ If you...
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | max_results | integer | 10 | Max results to show by default
+| actions | Object | optional | Custom defined actions
+
+### Actions
+
+You can define custom actions that will call a service (if it exists) with the input. Matching is done via regular expressions and {1}, {2}, {3}, etc. will be replaced by the corresponding group. See example below for inspiration.
 
 ### Example
 
   ```yaml
   - type: custom:search-card
     max_results: 10
+      - matches: '^toggle (.+\..+)'
+        name: 'Toggle {1}'
+        service: homeassistant.toggle
+        service_data:
+        entity_id: {1}
   ```
 
 ## Issues and imitations
