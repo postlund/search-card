@@ -54,7 +54,7 @@ class SearchCard extends ct.LitElement {
         <div id="searchContainer">
           <paper-input id="searchText"
                        @value-changed="${this._valueChanged}"
-                       no-label-float
+                       no-label-float type="input"
                        label="${this.search_text}">
             <ha-icon icon="mdi:magnify" id="searchIcon"
                        slot="prefix"></ha-icon>
