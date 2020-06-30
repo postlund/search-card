@@ -35,6 +35,8 @@ class SearchCard extends ct.LitElement {
 
     this.active_actions = [];
     this.max_results = this.config.max_results || 10;
+    
+    this.search_text = this.config.search_text || "Type to search...";
 
     this.actions = BUILTIN_ACTIONS.concat(this.config.actions || []);
   }
@@ -53,7 +55,7 @@ class SearchCard extends ct.LitElement {
           <paper-input id="searchText"
                        @value-changed="${this._valueChanged}"
                        no-label-float
-                       label="Type to search...">
+                       label="${this.search_text}">
             <ha-icon icon="mdi:magnify" id="searchIcon"
                        slot="prefix"></ha-icon>
             <paper-icon-button slot="suffix"
