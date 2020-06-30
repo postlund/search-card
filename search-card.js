@@ -58,11 +58,11 @@ class SearchCard extends ct.LitElement {
                        label="${this.search_text}">
             <ha-icon icon="mdi:magnify" id="searchIcon"
                        slot="prefix"></ha-icon>
-            <paper-icon-button slot="suffix"
+            <ha-icon-button slot="suffix"
                                @click="${this._clearInput}"
                                icon="mdi:close"
                                alt="Clear"
-                               title="Clear"></paper-icon-button>
+                               title="Clear"></ha-icon-button>
           </paper-input>
           ${results.length > 0 ?
               ct.LitHtml `<div id="count">Showing ${results.length} of ${this.results.length} results</div>`
@@ -181,6 +181,12 @@ class SearchCard extends ct.LitElement {
       }
       #searchIcon {
         padding: 10px;
+      }
+      input::-webkit-search-decoration,
+      input::-webkit-search-cancel-button,
+      input::-webkit-search-results-button,
+      input::-webkit-search-results-decoration {
+        display: none;
       }
     `;
   }
