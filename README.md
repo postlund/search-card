@@ -18,7 +18,9 @@ Some things I want to add in upcoming releases:
 * Button to show all results (to override "max results")
 
 ## Install
-
+  
+Make sure [card-tools](https://github.com/thomasloven/lovelace-card-tools) is installed first.
+  
 ### Simple Install
 
 1. Download `search-card.js` and copy it into `config/www/search-card` (create the `search-card` directory)
@@ -88,6 +90,6 @@ This is still an early version and may contain bugs. If you find any problems, p
 
 ## Getting errors?
 
-Clear the browser cache, restart Home Assistant and make sure the configuration is correct.
+Clear the browser cache, restart Home Assistant and make sure the configuration is correct. Also make sure [card-tools](https://github.com/thomasloven/lovelace-card-tools) is installed properly.
 
 If you believe you have found an error, please write an issue.
