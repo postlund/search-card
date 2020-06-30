@@ -64,6 +64,7 @@ If you...
 |------|------|---------|-------------|
 | max_results | integer | 10 | Max results to show by default
 | actions | Object | optional | Custom defined actions
+| search_text | String | "Type to search..." | Override of placeholder text
 
 ### Actions
 
