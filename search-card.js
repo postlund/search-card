@@ -54,7 +54,7 @@ class SearchCard extends ct.LitElement {
         <div id="searchContainer">
           <paper-input id="searchText"
                        @value-changed="${this._valueChanged}"
-                       no-label-float type="search"
+                       no-label-float type="text" autocomplete="off"
                        label="${this.search_text}">
             <ha-icon icon="mdi:magnify" id="searchIcon"
                        slot="prefix"></ha-icon>
@@ -181,12 +181,6 @@ class SearchCard extends ct.LitElement {
       }
       #searchIcon {
         padding: 10px;
-      }
-      input::-webkit-search-decoration,
-      input::-webkit-search-cancel-button,
-      input::-webkit-search-results-button,
-      input::-webkit-search-results-decoration {
-        display: none;
       }
     `;
   }
