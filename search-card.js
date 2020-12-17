@@ -196,3 +196,11 @@ setTimeout(() => {
     setConfig() { throw new Error("Can't find card-tools. See https://github.com/thomasloven/lovelace-card-tools");}
   });
 }, 2000);
+
+window.customCards = window.customCards || [];
+window.customCards.push({
+  type: "search-card",
+  name: "Search Card",
+  preview: true,
+  description: "Card to search entities"
+});
