@@ -67,6 +67,8 @@ If you...
 | max_results | integer | 10 | Max results to show by default
 | actions | Object | optional | Custom defined actions
 | search_text | String | "Type to search..." | Override of placeholder text
+| included_domains | Array of String | optional | Only show entities from defined domains. Cannot be set together with `excluded_domains`.
+| excluded_domains | Array of String | optional | Don't show entities from defined domains. Cannot be set together with `included_domains`.
 
 ### Actions
 
@@ -75,13 +77,16 @@ You can define custom actions that will call a service (if it exists) with the i
 ### Example
 
   ```yaml
-  - type: custom:search-card
+    type: custom:search-card
     max_results: 10
+    actions:
       - matches: '^toggle (.+\..+)'
         name: 'Toggle {1}'
         service: homeassistant.toggle
         service_data:
         entity_id: {1}
+    excluded_domains:
+      - automation
   ```
 
 ## Issues and imitations
