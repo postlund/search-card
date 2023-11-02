@@ -55,17 +55,24 @@ class SearchCard extends ct.LitElement {
       return ct.LitHtml `
       <ha-card>
         <div id="searchContainer">
-          <paper-input id="searchText"
-                       @value-changed="${this._valueChanged}"
-                       no-label-float type="text" autocomplete="off"
-                       label="${this.search_text}">
-            <ha-icon icon="mdi:magnify" id="searchIcon"
-                       slot="prefix"></ha-icon>
-            <ha-icon-button slot="suffix"
-                               @click="${this._clearInput}"
-                               alt="Clear"
-                               title="Clear"><ha-icon icon="mdi:close"></ha-icon></ha-icon-button>
-          </paper-input>
+          <ha-textfield
+            id="searchText"
+            @input="${this._valueChanged}"
+            no-label-float type="text" autocomplete="off"
+            icon iconTrailing
+            label="${this.search_text}"
+          >
+            <ha-icon icon="mdi:magnify" id="searchIcon" slot="leadingIcon"></ha-icon>
+            <ha-icon-button
+              slot="trailingIcon"
+              @click="${this._clearInput}"
+              alt="Clear"
+              title="Clear"
+            >
+              <ha-icon icon="mdi:close"></ha-icon>
+            </ha-icon-button>
+          </ha-textfield>
+
           ${results.length > 0 ?
               ct.LitHtml `<div id="count">Showing ${results.length} of ${this.results.length} results</div>`
             : ''}
@@ -106,12 +113,15 @@ class SearchCard extends ct.LitElement {
   _clearInput()
   {
     this.shadowRoot.getElementById('searchText').value = '';
-    super.update()
+    this._updateSearchResults('');
   }
 
   _valueChanged(ev) {
     var searchText = ev.target.value;
+    this._updateSearchResults(searchText);
+  }
 
+  _updateSearchResults(searchText) {
     this.results = [];
     this.active_actions = [];
 
@@ -171,9 +181,14 @@ class SearchCard extends ct.LitElement {
     return ct.LitCSS `
       #searchContainer {
         width: 90%;
-        display: block;
+        display: flex;
         margin-left: auto;
         margin-right: auto;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+      #searchText {
+        flex-grow: 1;
       }
       #count {
         text-align: right;
@@ -186,9 +201,6 @@ class SearchCard extends ct.LitElement {
         margin-top: 15px;
         margin-left: auto;
         margin-right: auto;
-      }
-      #searchIcon {
-        padding: 10px;
       }
     `;
   }
