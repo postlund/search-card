@@ -55,23 +55,25 @@ class SearchCard extends ct.LitElement {
       return ct.LitHtml `
       <ha-card>
         <div id="searchContainer">
-          <ha-textfield
-            id="searchText"
-            @input="${this._valueChanged}"
-            no-label-float type="text" autocomplete="off"
-            icon iconTrailing
-            label="${this.search_text}"
-          >
-            <ha-icon icon="mdi:magnify" id="searchIcon" slot="leadingIcon"></ha-icon>
-            <ha-icon-button
-              slot="trailingIcon"
-              @click="${this._clearInput}"
-              alt="Clear"
-              title="Clear"
+          <div id="searchTextFieldContainer">
+            <ha-textfield
+              id="searchText"
+              @input="${this._valueChanged}"
+              no-label-float type="text" autocomplete="off"
+              icon iconTrailing
+              label="${this.search_text}"
             >
-              <ha-icon icon="mdi:close"></ha-icon>
-            </ha-icon-button>
-          </ha-textfield>
+              <ha-icon icon="mdi:magnify" id="searchIcon" slot="leadingIcon"></ha-icon>
+              <ha-icon-button
+                slot="trailingIcon"
+                @click="${this._clearInput}"
+                alt="Clear"
+                title="Clear"
+              >
+                <ha-icon icon="mdi:close"></ha-icon>
+              </ha-icon-button>
+            </ha-textfield>
+          </div>
 
           ${results.length > 0 ?
               ct.LitHtml `<div id="count">Showing ${results.length} of ${this.results.length} results</div>`
@@ -181,9 +183,12 @@ class SearchCard extends ct.LitElement {
     return ct.LitCSS `
       #searchContainer {
         width: 90%;
-        display: flex;
+        display: block;
         margin-left: auto;
         margin-right: auto;
+      }
+      #searchTextFieldContainer {
+        display: flex;
         padding-top: 5px;
         padding-bottom: 5px;
       }
