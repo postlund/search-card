@@ -76,7 +76,7 @@ customElements.whenDefined("card-tools").then(() => {
       <ha-card>
         <div id="searchContainer">
           <div id="searchTextFieldContainer">
-            <ha-textfield
+            <ha-input
               id="searchText"
               .value="${this._searchValue}"
               @input="${this._valueChanged}"
@@ -96,7 +96,7 @@ customElements.whenDefined("card-tools").then(() => {
               >
                 <ha-icon icon="mdi:close"></ha-icon>
               </ha-icon-button>
-            </ha-textfield>
+            </ha-input>
           </div>
 
           ${
